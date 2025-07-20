@@ -1,0 +1,27 @@
+.chat-container {
+    background-color: blue;
+    width: 60%;
+    margin: auto;
+    padding: 1rem;
+    font-family: sans-serif;
+  }
+  
+  .upload-form {
+    margin-bottom: 1rem;
+  }
+  
+  .doc-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .doc-list li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .chat-box {
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    padding-top: 1rem;
+  }
+  
