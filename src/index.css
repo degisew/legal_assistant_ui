@@ -1,41 +1,41 @@
-  /* Nav bar */
-  .nav_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #1e1e2f;
-    color: #ffffff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-  }
-  
-  .right_side a {
-    margin-left: 1.5rem;
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease-in-out;
-  }
-  
-  .right_side a:hover {
-    color: #00bfa6;
-  }
-  
-  /* styles.css */
-.chat_container {
+/* Nav bar */
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.right_side a {
+  margin-left: 1.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.right_side a:hover {
+  color: #00bfa6;
+}
+
+/* styles.css */
+.main {
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
   font-family: sans-serif;
 }
 
-.chat_container h2 {
+.main h2 {
   margin-bottom: 20px;
   font-size: 24px;
 }
@@ -99,7 +99,6 @@ button:hover {
   border-radius: 6px;
 }
 
-
 /* Chat Form */
 .chat-input-wrapper {
   position: relative;
@@ -109,7 +108,7 @@ button:hover {
 
 .chat-input-wrapper input {
   width: 100%;
-  padding: 10px 60px 10px 10px; /* Leave space for the button on the right */
+  padding: 10px 60px 10px 10px;
   font-size: 14px;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -130,7 +129,7 @@ button:hover {
 
 /* Chat Interface */
 
-.chat-fullscreen {
+.chat-window-container {
   height: 100vh;
   padding: 1rem;
   background: white;
