@@ -1,6 +1,6 @@
 export interface UserDocs {
     id: number | string;
-    name: string;
+    file_name: string;
 };
 
 export interface ChatMessage {

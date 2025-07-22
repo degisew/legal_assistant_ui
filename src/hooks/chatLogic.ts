@@ -7,10 +7,7 @@ export const chatLogic = () => {
     const [message, setMessage] = useState("");
     const [file, setFile] = useState<File | null>(null);
     const [selectedDoc, setSelectedDoc] = useState<string | null>(null);
-    const [docs, setDocs] = useState<UserDocs[]>([
-        { id: 1, name: "legal_doc" },
-        { id: 2, name: "Intch_user_agreement" },
-    ]);
+    const [docs, setDocs] = useState<UserDocs[]>([]);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const handleChatSubmit = async (e: React.FormEvent) => {
@@ -35,13 +32,15 @@ export const chatLogic = () => {
     const handleFileUpload = async () => {
         if (file) {
             try {
-                await uploadDocument(file);
-                const newDoc = { id: Date.now().toString(), name: file.name };
+                const res = await uploadDocument(file);
+                console.log(res);
+                
+                const newDoc: UserDocs = { id: res.id, file_name: res.file_name };
                 setDocs((prev) => [...prev, newDoc]);
                 setFile(null);
                 if (fileInputRef.current) fileInputRef.current.value = "";
             } catch (err) {
-                console.error("Upload failed", err);
+                console.error("File Upload failed", err);
             }
         }
     };

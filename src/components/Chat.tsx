@@ -34,8 +34,8 @@ function Chat() {
           <ul>
             {docs.map((doc) => (
               <li key={doc.id}>
-                <button onClick={() => setSelectedDoc(doc.name)}>
-                  {doc.name}
+                <button onClick={() => setSelectedDoc(doc.file_name)}>
+                  {doc.file_name}
                 </button>
               </li>
             ))}
