@@ -1,0 +1,20 @@
+.login-form{
+    width: 50%;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.login-form form {
+    text-align: center;
+    border: 1px solid #eb1212;
+    margin: 20px;
+}
+.login-form input[type="text"] {
+    width: 50%;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }

@@ -9,13 +9,13 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
+.logo a{
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 1px;
 }
 
-.right_side a {
+.right_side a, .logo a{
   margin-left: 1.5rem;
   color: #ffffff;
   text-decoration: none;
