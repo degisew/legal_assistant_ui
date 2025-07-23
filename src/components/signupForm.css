@@ -61,3 +61,8 @@
   .login-link a:hover {
     text-decoration: underline;
   }
+
+  .error-log {
+   color: red;
+   font-size: 0.9rem;
+  }

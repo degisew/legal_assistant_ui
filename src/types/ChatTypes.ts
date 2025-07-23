@@ -8,3 +8,14 @@ export interface ChatMessage {
     text: string;
 };
 
+
+export interface SignupFormData {
+    email: string;
+    password: string;
+    confirm_password: string;
+}
+
+export interface LoginFormData {
+    username: string;
+    password: string;
+}

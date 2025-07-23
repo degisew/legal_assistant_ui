@@ -38,7 +38,7 @@ export const chatLogic = () => {
                 const newDoc: UserDocs = { id: res.id, file_name: res.file_name };
                 setDocs((prev) => [...prev, newDoc]);
                 setFile(null);
-                if (fileInputRef.current) fileInputRef.current.value = "";
+                fileInputRef.current && (fileInputRef.current.value = "");
             } catch (err) {
                 console.error("File Upload failed", err);
             }

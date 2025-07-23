@@ -1,19 +1,55 @@
-import type { FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import "./loginForm.css";
+import { useNavigate } from "react-router-dom";
+import type { LoginFormData } from "../types/ChatTypes";
+import { loginHandler } from "../services/api";
 
 function LoginForm() {
-  const loginHandler = (e: FormEvent) => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<LoginFormData>({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Add signin logic here (e.g. API call)
-    console.log("Signup submitted");
+    try {
+      await loginHandler(formData);
+      navigate("/chat");
+    } catch (err: any) {
+      setError(err.message); // show backend error
+    }
   };
   return (
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
-        <form onSubmit={loginHandler}>
-          <input type="email" placeholder="Email" required />
-          <input type="password" placeholder="Password" required />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="username"
+            value={formData.username}
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+          {error && <p className="error-log">{error}</p>}
           <button type="submit">Login</button>
         </form>
       </div>
