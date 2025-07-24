@@ -3,6 +3,7 @@ import { chatLogic } from "../hooks/chatLogic";
 import ChatForm from "./ChatForm";
 import FileUpload from "./FileUpload";
 import ChatWindow from "./ChatWindow";
+import "./chat.css";
 
 function Chat() {
   const {

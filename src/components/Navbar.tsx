@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
+import "./navbar.css";
 
 function Navbar() {
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
   const handleLogout = () => {
+    logout();
     localStorage.removeItem("token");
     navigate("/login", { replace: true });
   };
@@ -14,12 +18,17 @@ function Navbar() {
         </div>
       </div>
       <div className="right_side">
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
+        {isAuthenticated ? (
+          <button onClick={handleLogout} className="logout-btn">
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
       </div>
-        <button onClick={handleLogout} className="logout-btn">
-          Logout
-        </button>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import type { FormEvent } from "react";
+import "./chatForm.css";
 
 interface ChatFormProps {
   message: string;

@@ -1,5 +1,5 @@
 import { type ChangeEvent, type Ref } from "react";
-
+import "./fileUpload.css";
 interface FileUploadProps {
   fileInputRef: Ref<HTMLInputElement> | undefined;
   fileChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -12,7 +12,7 @@ function FileUpload({
   fileUploadHandler,
 }: FileUploadProps) {
   return (
-    <div>
+    <div className="upload-container">
       <input
         type="file"
         ref={fileInputRef}

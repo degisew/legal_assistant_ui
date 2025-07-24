@@ -1,0 +1,39 @@
+/* Nav bar */
+.nav_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.right_side a,
+.logo a {
+  margin-left: 1.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.right_side a:hover {
+  color: #00bfa6;
+}
+
+.right_side button {
+  border: 3px solid red;
+  background: none;
+}
+
+.right_side button:hover {
+  background-color: red;
+  font-weight: bold;
+}

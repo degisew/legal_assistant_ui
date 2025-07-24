@@ -3,8 +3,10 @@ import "./loginForm.css";
 import { useNavigate } from "react-router-dom";
 import type { LoginFormData } from "../types/ChatTypes";
 import { loginHandler } from "../services/api";
+import { useAuth } from "./AuthProvider";
 
 function LoginForm() {
+  const { login } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     username: "",
@@ -23,9 +25,11 @@ function LoginForm() {
     e.preventDefault();
     try {
       await loginHandler(formData);
+      // setting global auth state
+      login();
       navigate("/chat");
     } catch (err: any) {
-      setError(err.message); // show backend error
+      setError(err.message);
     }
   };
   return (
