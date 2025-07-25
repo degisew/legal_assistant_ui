@@ -1,4 +1,3 @@
-import { type ChangeEvent } from "react";
 import { chatLogic } from "../hooks/chatLogic";
 import ChatForm from "./ChatForm";
 import FileUpload from "./FileUpload";
@@ -10,11 +9,11 @@ function Chat() {
     messages,
     message,
     selectedDoc,
+    setSelectedDoc,
     docs,
     fileInputRef,
     setMessage,
     setFile,
-    setSelectedDoc,
     handleChatSubmit,
     handleFileUpload,
   } = chatLogic();
@@ -35,7 +34,10 @@ function Chat() {
           <ul>
             {docs.map((doc) => (
               <li key={doc.id}>
-                <button onClick={() => setSelectedDoc(doc.file_name)}>
+                <button
+                  onClick={() => {setSelectedDoc(doc.file_name);
+                  }}
+                >
                   {doc.file_name}
                 </button>
               </li>

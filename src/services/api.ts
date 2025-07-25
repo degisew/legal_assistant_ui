@@ -85,3 +85,22 @@ export const loginHandler = async (formData: { username: string; password: strin
     console.log(data);
     return data;
 }
+
+
+export const store_chat_messages_on_the_backend = async (data: {}) => {
+    console.log(data);
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://127.0.0.1:8000/messages", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+    });
+
+    return res.json();
+
+}
