@@ -27,7 +27,7 @@ function Chat() {
   const chatStarted = messages.length > 0;
 
   return (
-    <main className="main">
+    <main className="chat-main">
       {!chatStarted ? (
         <>
           <h2>Chat with your documents</h2>

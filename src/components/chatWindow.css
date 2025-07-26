@@ -1,18 +1,23 @@
 .chat-window-container {
+  width: 100%;
   height: 100vh;
-  padding: 1rem;
   background: white;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .chat-window {
-  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  width: 99%;
+  flex-grow: .5;  /* this pushes the chat input button a bit to bottom*/
   overflow-y: auto;
-  border: 1px solid #ccc;
-  margin-bottom: 1rem;
-  padding: 1rem;
+  /* border: 1px solid #e01616; */
+  padding: 1rem; 
   background: #fdfdfd;
+  gap: .5rem;
+  color: white;
 }
 
 .chat-input-wrapper {
@@ -21,17 +26,24 @@
 }
 
 .user {
-  text-align: right;
-  background-color: #d0f0ff;
-  padding: 8px;
-  border-radius: 6px;
-  margin: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user .message {
+  background-color: gray;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .bot {
-  text-align: left;
-  background-color: #f0ffd0;
-  padding: 8px;
-  border-radius: 6px;
-  margin: 5px;
+display: flex;
+justify-content: flex-start; 
+}
+
+
+.bot .message {
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
 }
