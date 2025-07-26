@@ -1,3 +1,25 @@
+export const loginHandler = async (formData: { username: string; password: string }) => {
+    // ? FastAPI OAuth2PasswordRequestForm not accepts JSON
+    const body = new URLSearchParams();
+    body.append("username", formData.username);
+    body.append("password", formData.password);
+    const res = await fetch("http://127.0.0.1:8000/auth/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: body.toString(),
+    })
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Login failed.");
+    }
+    const data = await res.json();
+    localStorage.setItem("token", data.access_token)
+    console.log(data);
+    return data;
+}
+
 export const fetchChatResponse = async (query: string, file_name: string | null) => {
     const token = localStorage.getItem("token");
     const res = await fetch("http://127.0.0.1:8000/chat/", {
@@ -9,7 +31,10 @@ export const fetchChatResponse = async (query: string, file_name: string | null)
         body: JSON.stringify({ query, file_name }),
     });
 
-    if (!res.ok) throw new Error("Failed to fetch chat response");
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to fetch chat response");
+    }
     return res.json();
 };
 
@@ -25,8 +50,10 @@ export const uploadDocument = async (file: File) => {
         body: formData,
     });
 
-    if (!res.ok) throw new Error("Failed to upload file");
-
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to Upload a file");
+    }
     return res.json();
 };
 
@@ -64,29 +91,6 @@ export const signupHandler = async (formData: {}) => {
     return data;
 }
 
-export const loginHandler = async (formData: { username: string; password: string }) => {
-    // ? FastAPI OAuth2PasswordRequestForm not accepts JSON
-    const body = new URLSearchParams();
-    body.append("username", formData.username);
-    body.append("password", formData.password);
-    const res = await fetch("http://127.0.0.1:8000/auth/token", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: body.toString(),
-    })
-    if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.detail || "Login failed.");
-    }
-    const data = await res.json();
-    localStorage.setItem("token", data.access_token)
-    console.log(data);
-    return data;
-}
-
-
 export const store_chat_messages_on_the_backend = async (data: {}) => {
     console.log(data);
 
@@ -100,7 +104,30 @@ export const store_chat_messages_on_the_backend = async (data: {}) => {
         },
         body: JSON.stringify(data),
     });
-
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to Store Messages");
+    }
     return res.json();
 
+}
+
+export const createChatSession = async (data: {}) => {
+    console.log("DAA", JSON.stringify(data));
+    
+    const token = localStorage.getItem("token");
+    const res = await fetch("http://127.0.0.1:8000/chat-session", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to create chat session.");
+    }
+    return res.json();
 }

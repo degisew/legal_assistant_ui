@@ -1,24 +1,24 @@
-import { v4 as uuidv4 } from "uuid";
 import { useState, useRef } from "react";
 import type { ChatMessage, UserDocs } from "../types/ChatTypes";
-import { fetchChatResponse, store_chat_messages_on_the_backend, uploadDocument } from "../services/api";
+import { createChatSession, fetchChatResponse, store_chat_messages_on_the_backend, uploadDocument } from "../services/api";
 interface MesageType {
     message: string,
     sender: "user" | "bot"
-    chatInfo: ChatInfo | null
+    chat_id: string
 }
 
-interface ChatInfo {
-    chatId: string,
-    chatName: string | null // TODO: should't be optional
+interface ChatSessionType {
+    id: string,
+    chat_name: string
 }
+
 //  Helper function for reusability
-const store_messages = async ({ message, chatInfo, sender }: MesageType) => {
+const store_messages = async ({ message, chat_id, sender }: MesageType) => {
     try {
         const messageData = {
             message: message,
             timestamp: new Date().toISOString(),
-            chatInfo: chatInfo,
+            chat_id: chat_id,
             sender: sender
         }
         // Store chat message in the backend
@@ -31,7 +31,7 @@ const store_messages = async ({ message, chatInfo, sender }: MesageType) => {
     }
 }
 export const chatLogic = () => {
-    const [chatInfo, setChatInfo] = useState<ChatInfo | null>(null);
+    const [chatSession, setChatSession] = useState<ChatSessionType>();
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [message, setMessage] = useState("");
     const [file, setFile] = useState<File | null>(null);
@@ -41,41 +41,33 @@ export const chatLogic = () => {
 
 
     const handleChatSubmit = async (e: React.FormEvent) => {
-        let info = chatInfo;
-        // We can't use chatInfo directly here b/c 
-        // setState is async while doing setChatInfo
-        //  TODO: We have to find a way for page refresh as well.
-        // TODO: What if user refreshes while they're in the current chat?
-        // TODO: Info (may be check the url is in root or has chat id )
-        if (!info) {
-            console.log("First time!");
-            info = {
-                chatId: uuidv4(),
-                chatName: `Chat with ${selectedDoc}`,
-            };
-            setChatInfo(info);
-        }
         e.preventDefault();
         if (!message.trim()) return;
         const userMessage = message.trim();
 
         setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
         setMessage("");
-
-        // Store message
-        store_messages({ message, chatInfo: info, sender: "user" })
-
         try {
+            let sessionId: string;
+            if (!chatSession?.id) {
+                const sessionResponse = await createChatSession({ file_name: selectedDoc });
+                sessionId = sessionResponse.id;
+                setChatSession(sessionResponse);
+            } else {
+                sessionId = chatSession.id;
+            }
+            await store_messages({ message, chat_id: sessionId, sender: "bot" })
             // LLM calling
             const bot_message = await fetchChatResponse(userMessage, selectedDoc);
             setMessages((prev) => [...prev, { sender: "bot", text: bot_message }]);
             // Store message
-            store_messages({ message: bot_message, chatInfo: info, sender: "bot" })
+            await store_messages({ message: bot_message, chat_id: sessionId, sender: "bot" })
         } catch (err) {
             setMessages((prev) => [
                 ...prev,
                 { sender: "bot", text: "Error: could not connect to backend." },
             ]);
+            console.error("Error in handleChatSubmit:", err);
         }
     };
 
