@@ -1,69 +1,89 @@
-# React + TypeScript + Vite
+# Legal Assistant Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Legal Assistant application, built with React, designed to interact with a backend API (FastAPI) to help users with legal document analysis and question answering. It provides an intuitive chat interface, file upload system, and history tracking to make legal research easier and fast
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Chat-based legal assistant
 
-## Expanding the ESLint configuration
+- Upload and analyze legal documents in various format(PDF, DOCX, MD)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Ask questions and get relevant legal insights
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Chat history sidebar for revisiting past interactions
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Seamless integration with FastAPI backend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Setup
+
+### pre-requesites
+
+- NodeJs
+
+### Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/degisew/legal_assistant_ui.git
+cd legal_assistant_ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm install
+# or
+yarn install
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+
+### 3. Run the App
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+## Tech Stack
+
+- React + TypeScript
+
+- React Router v6
+
+- Vanilla CSS for styling
+
+- Axios for HTTP requests
+
+- Vite
+
+- Backend: FastAPI (not included in this repo)
+
+## Folder Structure
+
+```bash
+src/
+├── components/        # Reusable UI components
+├── pages/             # Page components
+├── hooks/             # Custom React hooks
+├── services/          # Axios instance and API utilities
+├── types/             # Custom types
+├── App.tsx            # Main app with routing
+└── main.tsx           # App entry point
+
+```
+
+## License
+
+MIT License. See [LICENSE](LICENSE).
+
+<div align="center">
+
+**⭐ Star this repo if you found it useful!**
+
+Built by [Degisew Mengist](https://github.com/degisew)
+
+[⬆ Back to Top](#legal-assistant-frontend)
+
+</div>
