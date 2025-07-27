@@ -5,7 +5,7 @@ export interface UserDocs {
 
 export interface ChatMessage {
     sender: "user" | "bot";
-    text: string;
+    message: string;
 };
 
 
