@@ -6,6 +6,8 @@ interface ChatWindowProps {
 }
 
 function ChatWindow({ messages }: ChatWindowProps) {
+  console.log("Chat winow msg", messages);
+  
   return (
     <div className="chat-window">
       {messages.map((msg, index) => (

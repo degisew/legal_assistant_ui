@@ -89,6 +89,7 @@ export const chatLogic = () => {
 
     return {
         messages,
+        setMessages,
         message,
         selectedDoc,
         docs,

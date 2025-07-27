@@ -113,8 +113,6 @@ export const store_chat_messages_on_the_backend = async (data: {}) => {
 }
 
 export const createChatSession = async (data: {}) => {
-    console.log("DAA", JSON.stringify(data));
-    
     const token = localStorage.getItem("token");
     const res = await fetch("http://127.0.0.1:8000/chat-session", {
         method: "POST",
@@ -128,6 +126,39 @@ export const createChatSession = async (data: {}) => {
     if (!res.ok) {
         const error = await res.json();
         throw new Error(error.detail || "Failed to create chat session.");
+    }
+    return res.json();
+}
+
+
+export const getChatHistories = async () => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("http://127.0.0.1:8000/chat-histories", {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    });
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to fetch chat session.");
+    }
+    return res.json();
+}
+
+
+export const getChatHistoryMessages = async (chatId: string) => {
+    const token = localStorage.getItem("token");
+    console.log("Chat MEssages");
+    
+    const res = await fetch(`http://127.0.0.1:8000/${chatId}/messages`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+    });
+    if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.detail || "Failed to fetch chat history messages.");
     }
     return res.json();
 }

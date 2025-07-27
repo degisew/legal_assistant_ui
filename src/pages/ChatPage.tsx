@@ -5,10 +5,35 @@ import { useParams } from "react-router-dom";
 import ChatWindow from "../components/ChatWindow";
 import ChatForm from "../components/ChatForm";
 import { chatLogic } from "../hooks/chatLogic";
+import { getChatHistoryMessages } from "../services/api";
+import { useEffect } from "react";
 
 function ChatPage() {
-  const { message, selectedDoc, setMessage, handleChatSubmit } = chatLogic();
+  const { message, messages, selectedDoc, setMessage, setMessages, handleChatSubmit } = chatLogic();
   const { chatId } = useParams();
+  
+  const fetchChatHistoryMesaages = async () => {
+    try {
+      if (!chatId) {
+        console.log("Empty chat id:", chatId);
+        return;
+        
+      }
+      console.log("AAA");
+      
+      const res = await getChatHistoryMessages(chatId);
+      setMessages(res);
+    } catch (error) {
+      console.error("Failed to fetch chat history messages", error);
+    }
+  };
+
+  useEffect(() => {
+    console.log("CHAT MESSAGES");
+    
+    fetchChatHistoryMesaages();
+  }, []);
+
   return (
     <main className="chat-page">
       <Sidebar />
@@ -19,10 +44,7 @@ function ChatPage() {
       ) : (
         <div className="chat-window-container">
           <ChatWindow
-            messages={[
-              { sender: "user", text: "hello" },
-              { sender: "bot", text: "hello! How can I help you today?" },
-            ]}
+            messages={messages}
           />
           <ChatForm
             message={message}
