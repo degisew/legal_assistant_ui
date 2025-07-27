@@ -13,7 +13,7 @@ function ChatWindow({ messages }: ChatWindowProps) {
       {messages.map((msg, index) => (
         <div key={index} className={msg.sender === "user" ? "user" : "bot"}>
           <div className="message">
-            <strong>{msg.sender === "user" ? "You" : "Bot"}:</strong> {msg.text}
+            {msg.message}
           </div>
         </div>
       ))}

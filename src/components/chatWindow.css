@@ -11,12 +11,12 @@
   display: flex;
   flex-direction: column;
   width: 99%;
-  flex-grow: .5;  /* this pushes the chat input button a bit to bottom*/
+  flex-grow: .5;  /* * this pushes the chat input button a bit to bottom*/
   overflow-y: auto;
   /* border: 1px solid #e01616; */
   padding: 1rem; 
   background: #fdfdfd;
-  gap: .5rem;
+  gap: 3rem;
   color: white;
 }
 
@@ -34,6 +34,8 @@
   background-color: gray;
   padding: 10px;
   border-radius: 10px;
+  max-width: 50%;
+  border: 1px solid red;
 }
 
 .bot {

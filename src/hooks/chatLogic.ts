@@ -45,7 +45,7 @@ export const chatLogic = () => {
         if (!message.trim()) return;
         const userMessage = message.trim();
 
-        setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
+        setMessages((prev) => [...prev, { sender: "user", message: userMessage }]);
         setMessage("");
         try {
             let sessionId: string;
@@ -56,16 +56,16 @@ export const chatLogic = () => {
             } else {
                 sessionId = chatSession.id;
             }
-            await store_messages({ message, chat_id: sessionId, sender: "bot" })
+            await store_messages({ message, chat_id: sessionId, sender: "user" })
             // LLM calling
             const bot_message = await fetchChatResponse(userMessage, selectedDoc);
-            setMessages((prev) => [...prev, { sender: "bot", text: bot_message }]);
+            setMessages((prev) => [...prev, { sender: "bot", message: bot_message }]);
             // Store message
             await store_messages({ message: bot_message, chat_id: sessionId, sender: "bot" })
         } catch (err) {
             setMessages((prev) => [
                 ...prev,
-                { sender: "bot", text: "Error: could not connect to backend." },
+                { sender: "bot", message: "Error: could not connect to backend." },
             ]);
             console.error("Error in handleChatSubmit:", err);
         }
