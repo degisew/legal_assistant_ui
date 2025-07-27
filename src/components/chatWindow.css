@@ -15,7 +15,6 @@
   overflow-y: auto;
   /* border: 1px solid #e01616; */
   padding: 1rem; 
-  background: #fdfdfd;
   gap: 3rem;
   color: white;
 }
@@ -35,7 +34,6 @@
   padding: 10px;
   border-radius: 10px;
   max-width: 50%;
-  border: 1px solid red;
 }
 
 .bot {

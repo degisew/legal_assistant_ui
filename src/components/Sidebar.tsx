@@ -35,7 +35,12 @@ function Sidebar({ setSelectedDoc }: SidebarProps) {
       <h2>Chats</h2>
       <hr />
       <aside className="chat-history">
-        <Link key={"new-chat"} to={"/chat"} className="new-chat">
+        <Link
+          key={"new-chat"}
+          to={"/chat"}
+          className="new-chat"
+          onClick={() => setSelectedDoc("")}
+        >
           Start New Chat
         </Link>
         {chatList.map((chat) => (
