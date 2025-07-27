@@ -1,4 +1,3 @@
-import { type ChangeEvent } from "react";
 import { chatLogic } from "../hooks/chatLogic";
 import ChatForm from "./ChatForm";
 import FileUpload from "./FileUpload";
@@ -10,11 +9,11 @@ function Chat() {
     messages,
     message,
     selectedDoc,
+    setSelectedDoc,
     docs,
     fileInputRef,
     setMessage,
     setFile,
-    setSelectedDoc,
     handleChatSubmit,
     handleFileUpload,
   } = chatLogic();
@@ -28,14 +27,17 @@ function Chat() {
   const chatStarted = messages.length > 0;
 
   return (
-    <main className="main">
+    <main className="chat-main">
       {!chatStarted ? (
         <>
           <h2>Chat with your documents</h2>
           <ul>
             {docs.map((doc) => (
               <li key={doc.id}>
-                <button onClick={() => setSelectedDoc(doc.file_name)}>
+                <button
+                  onClick={() => {setSelectedDoc(doc.file_name);
+                  }}
+                >
                   {doc.file_name}
                 </button>
               </li>
