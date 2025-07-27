@@ -5,7 +5,7 @@ import ChatForm from "../components/ChatForm";
 import { chatLogic } from "../hooks/chatLogic";
 import ChatWindow from "../components/ChatWindow";
 import FileUpload from "../components//FileUpload";
-import { getChatHistoryMessages } from "../services/api";
+import { getChatHistoryMessages, fetchUserDocuments } from "../services/api";
 import "./chatpage.css";
 
 function ChatPage() {
@@ -16,6 +16,7 @@ function ChatPage() {
     selectedDoc,
     setSelectedDoc,
     docs,
+    setDocs,
     fileInputRef,
     setMessage,
     setFile,
@@ -37,8 +38,6 @@ function ChatPage() {
         console.log("Empty chat id:", chatId);
         return;
       }
-      console.log("AAA");
-
       const res = await getChatHistoryMessages(chatId);
       setMessages(res);
     } catch (error) {
@@ -46,17 +45,26 @@ function ChatPage() {
     }
   };
 
-  useEffect(() => {
-    console.log("CHAT MESSAGES");
+  const getUserDocuments = async () => {
+    try {
+      const res = await fetchUserDocuments();
+      setDocs(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchChatHistoryMesaages();
   }, [chatId]);
 
+  useEffect(() => {
+    getUserDocuments();
+  }, []);
+
   return (
     <main className="chat-page">
-      <Sidebar
-        setSelectedDoc={setSelectedDoc}
-      />
+      <Sidebar setSelectedDoc={setSelectedDoc} />
       <div className="chat-area">
         <div className="chat-main">
           {!chatId ? (

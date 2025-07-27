@@ -91,13 +91,13 @@ export const chatLogic = () => {
         messages,
         setMessages,
         message,
-        selectedDoc,
-        docs,
-        fileInputRef,
         setMessage,
-        setFile,
+        selectedDoc,
         setSelectedDoc,
+        docs,
         setDocs,
+        setFile,
+        fileInputRef,
         handleChatSubmit,
         handleFileUpload
     };
